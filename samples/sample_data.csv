@@ -1,0 +1,11 @@
+id,name,email,phone,address,ssn
+1,John Smith,john.smith@example.com,555-123-4567,123 Main St.,123-45-6789
+2,Jane Doe,jane.doe@company.org,555-234-5678,456 Oak Ave.,234-56-7890
+3,Bob Johnson,bob.j@email.net,555-345-6789,789 Pine Rd.,345-67-8901
+4,Alice Williams,alice.w@domain.com,555-456-7890,321 Elm St.,456-78-9012
+5,Charlie Brown,charlie.b@test.io,555-567-8901,654 Maple Dr.,567-89-0123
+6,Diana Ross,diana.r@sample.org,555-678-9012,987 Cedar Ln.,678-90-1234
+7,Edward King,edward.k@demo.com,555-789-0123,147 Birch Way,789-01-2345
+8,Fiona Green,fiona.g@example.net,555-890-1234,258 Spruce Ct.,890-12-3456
+9,George White,george.w@company.io,555-901-2345,369 Willow Pl.,901-23-4567
+10,Helen Black,helen.b@domain.org,555-012-3456,741 Ash Blvd,012-34-5678

@@ -1,0 +1,9 @@
+{
+    "columns": {
+        "email": "HASH",
+        "phone": "MASK",
+        "name": "RANDOMIZE",
+        "ssn": "NULLIFY",
+        "address": "MASK"
+    }
+}

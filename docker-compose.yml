@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  sanitizer:
+    build: .
+    container_name: data-sanitizer
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data/input:/app/data/input
+      - ./data/output:/app/data/output
+      - sanitizer-db:/app/data
+    environment:
+      - JAVA_OPTS=-Xms256m -Xmx1024m
+      - SPRING_PROFILES_ACTIVE=docker
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+
+volumes:
+  sanitizer-db:
