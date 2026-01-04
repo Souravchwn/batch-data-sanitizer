@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Data Privacy Sanitizer</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e1e2e 0%, #2d1b4e 50%, #1e1e2e 100%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.5);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.7);
+        }
+
+        /* Card hover animation */
+        .stat-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body class="gradient-bg min-h-screen text-white">
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-card">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div
+                    class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                </div>
+                <span class="text-xl font-bold">DataPrivacy Sanitizer</span>
+            </div>
+            <div class="flex items-center space-x-6">
+                <a href="index.html" class="text-gray-400 hover:text-white">Home</a>
+                <a href="dashboard.html" class="text-indigo-400 font-medium">Dashboard</a>
+                <a href="history.html" class="text-gray-400 hover:text-white">History</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-28 pb-16 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex items-center justify-between mb-8">
+                <h1 class="text-3xl font-bold">Dashboard</h1>
+                <a href="index.html"
+                    class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 font-medium hover:from-indigo-500 hover:to-purple-500 transition-all flex items-center space-x-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                    <span>New Job</span>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                        </svg>
+                    </div>
+                    <p id="stat-total" class="text-3xl font-bold mb-1">0</p>
+                    <p class="text-gray-400 text-sm">Total Jobs</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <p id="stat-success" class="text-3xl font-bold mb-1 text-green-400">0</p>
+                    <p class="text-gray-400 text-sm">Successful</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
+                        </svg>
+                    </div>
+                    <p id="stat-rows" class="text-3xl font-bold mb-1 text-purple-400">0</p>
+                    <p class="text-gray-400 text-sm">Rows Processed</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="w-12 h-12 rounded-xl bg-orange-500/20 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <p id="stat-rate" class="text-3xl font-bold mb-1 text-orange-400">0</p>
+                    <p class="text-gray-400 text-sm">Avg Rows/Sec</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-semibold">Recent Jobs</h2>
+                    <a href="history.html" class="text-indigo-400 hover:underline text-sm">View All →</a>
+                </div>
+                <div id="jobs-list" class="space-y-4">
+                    <div class="text-center py-8 text-gray-500">Loading...</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const API_BASE = '/api/v1';
+
+        async function loadStats() {
+            try {
+                const res = await fetch(`${API_BASE}/audits/stats`);
+                if (!res.ok) throw new Error('Failed to load stats');
+                const s = await res.json();
+                document.getElementById('stat-total').textContent = s.totalJobs || 0;
+                document.getElementById('stat-success').textContent = s.successfulJobs || 0;
+                document.getElementById('stat-rows').textContent = formatNumber(s.totalRowsProcessed || 0);
+                document.getElementById('stat-rate').textContent = Math.round(s.averageProcessingRate || 0);
+            } catch (e) {
+                console.error('Stats error:', e);
+            }
+        }
+
+        async function loadJobs() {
+            try {
+                const res = await fetch(`${API_BASE}/audits`);
+                if (!res.ok) throw new Error('Failed to load jobs');
+                const jobs = await res.json();
+                const el = document.getElementById('jobs-list');
+
+                if (!jobs || jobs.length === 0) {
+                    el.innerHTML = `
+                        <div class="text-center py-12 text-gray-500">
+                            <svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+                            </svg>
+                            <p>No jobs found</p>
+                            <a href="index.html" class="text-indigo-400 hover:underline mt-2 inline-block">Start your first job →</a>
+                        </div>`;
+                    return;
+                }
+
+                el.innerHTML = jobs.slice(0, 10).map(j => `
+                    <div class="flex justify-between items-center p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 rounded-lg ${getStatusBg(j.status)} flex items-center justify-center">
+                                ${getStatusIcon(j.status)}
+                            </div>
+                            <div>
+                                <p class="font-medium">${getFileName(j.inputFileName)}</p>
+                                <p class="text-sm text-gray-400">${formatDate(j.startTime)} • ${formatNumber(j.rowsProcessed || 0)} rows</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            ${j.status === 'SUCCESS' ? `
+                                <a href="diff.html?jobId=${j.jobExecutionId}" 
+                                   class="p-2 rounded-lg bg-purple-500/20 hover:bg-purple-500/30 transition-colors" title="View Changes">
+                                    <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                    </svg>
+                                </a>
+                                <a href="${API_BASE}/jobs/${j.jobExecutionId}/download" 
+                                   class="p-2 rounded-lg bg-green-500/20 hover:bg-green-500/30 transition-colors" title="Download">
+                                    <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                    </svg>
+                                </a>
+                            ` : ''}
+                            <span class="px-3 py-1 rounded-full text-xs font-medium ${getStatusClass(j.status)}">${j.status}</span>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (e) {
+                console.error('Jobs error:', e);
+                document.getElementById('jobs-list').innerHTML = '<p class="text-center py-8 text-red-400">Failed to load jobs</p>';
+            }
+        }
+
+        function getStatusBg(status) {
+            const map = { 'SUCCESS': 'bg-green-500/20', 'FAILED': 'bg-red-500/20', 'RUNNING': 'bg-blue-500/20' };
+            return map[status] || 'bg-gray-500/20';
+        }
+
+        function getStatusIcon(status) {
+            if (status === 'SUCCESS') return '<svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>';
+            if (status === 'FAILED') return '<svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>';
+            return '<svg class="w-5 h-5 text-blue-400 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>';
+        }
+
+        function getStatusClass(status) {
+            const map = { 'SUCCESS': 'bg-green-500/20 text-green-400', 'FAILED': 'bg-red-500/20 text-red-400', 'RUNNING': 'bg-blue-500/20 text-blue-400' };
+            return map[status] || 'bg-gray-500/20 text-gray-400';
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+            return num.toString();
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '-';
+            const date = new Date(dateStr);
+            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function getFileName(path) {
+            if (!path) return 'Unknown';
+            return path.split(/[/\\]/).pop();
+        }
+
+        loadStats();
+        loadJobs();
+        setInterval(loadStats, 30000);
+        setInterval(loadJobs, 10000);
+    </script>
+</body>
+
+</html>
