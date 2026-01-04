@@ -1,0 +1,75 @@
+spring:
+  application:
+    name: batch-data-sanitizer
+
+  datasource:
+    url: jdbc:h2:file:./data/sanitizer-db;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      enabled: false
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10GB
+      max-request-size: 10GB
+
+sanitizer:
+  storage:
+    type: local  # Options: local, s3
+    base-path: ./data
+    input-dir: input
+    output-dir: output
+    temp-dir: temp
+
+    # S3 Configuration (used when type=s3)
+    s3:
+      bucket-name: ${S3_BUCKET_NAME:}
+      region: ${S3_REGION:us-east-1}
+      access-key: ${S3_ACCESS_KEY:}
+      secret-key: ${S3_SECRET_KEY:}
+      input-prefix: input/
+      output-prefix: output/
+
+  batch:
+    chunk-size: ${BATCH_CHUNK_SIZE:1000}
+    skip-limit: ${BATCH_SKIP_LIMIT:100}
+
+  preview:
+    max-rows: 20
+
+  defaults:
+    mask-char: '*'
+    mask-visible-chars: 4
+    hash-algorithm: SHA-256
+    null-replacement: ''
+
+server:
+  port: ${SERVER_PORT:8080}
+
+logging:
+  level:
+    root: INFO
+    com.sourav.enterprise.sanitizer: DEBUG
+    org.springframework.batch: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

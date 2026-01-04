@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changes Comparison | Data Privacy Sanitizer</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e1e2e 0%, #2d1b4e 50%, #1e1e2e 100%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.5);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.7);
+        }
+
+        thead th {
+            position: sticky;
+            top: 0;
+            background: #1e1e2e;
+            /* Fallback */
+            background: rgba(30, 30, 46, 0.95);
+            backdrop-filter: blur(4px);
+            z-index: 10;
+        }
+    </style>
+</head>
+
+<body class="gradient-bg min-h-screen text-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-card">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div
+                    class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                </div>
+                <span class="text-xl font-bold">DataPrivacy Sanitizer</span>
+            </div>
+            <div class="flex items-center space-x-6">
+                <a href="index.html" class="text-gray-400 hover:text-white">Home</a>
+                <a href="dashboard.html" class="text-gray-400 hover:text-white">Dashboard</a>
+                <a href="history.html" class="text-gray-400 hover:text-white">History</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-28 pb-16 px-6">
+        <div class="max-w-7xl mx-auto">
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h1 class="text-3xl font-bold mb-2">Changes Comparison</h1>
+                    <p class="text-gray-400">Reviewing sanitization results for Job #<span
+                            id="job-id-display">...</span></p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="history.html"
+                        class="px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Back to History
+                    </a>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="glass-card rounded-2xl p-6 min-h-[400px]">
+                <div id="loading-state" class="flex flex-col items-center justify-center py-20">
+                    <svg class="w-12 h-12 text-indigo-500 animate-spin mb-4" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                        </circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                    </svg>
+                    <p class="text-gray-400">Loading changes...</p>
+                </div>
+
+                <div id="error-state" class="hidden flex flex-col items-center justify-center py-20 text-center">
+                    <div class="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mb-4">
+                        <svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-red-400 mb-2">Failed to load changes</h3>
+                    <p id="error-message" class="text-gray-400 max-w-md mx-auto"></p>
+                    <button onclick="window.location.reload()"
+                        class="mt-6 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors">
+                        Try Again
+                    </button>
+                </div>
+
+                <div id="diff-content" class="hidden">
+                    <!-- Summary -->
+                    <div class="mb-6 p-4 rounded-xl bg-white/5 border border-white/10">
+                        <h4 class="font-semibold mb-2 text-indigo-300">Change Summary</h4>
+                        <div class="flex items-center space-x-6 text-sm">
+                            <p class="text-gray-400">Total modified cells: <span id="total-changes"
+                                    class="text-white font-bold text-lg ml-1">0</span></p>
+                        </div>
+                        <div id="changes-by-col" class="flex flex-wrap gap-2 mt-4">
+                            <!-- Dynamic stats -->
+                        </div>
+                    </div>
+
+                    <!-- Table -->
+                    <div class="overflow-hidden rounded-xl border border-white/10">
+                        <div class="overflow-x-auto max-h-[600px]">
+                            <table class="w-full text-sm">
+                                <thead id="diff-head" class="text-xs uppercase">
+                                    <!-- Dynamic header -->
+                                </thead>
+                                <tbody id="diff-body" class="divide-y divide-white/5">
+                                    <!-- Dynamic body -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <p class="mt-4 text-center text-xs text-gray-500">Showing first 50 rows only</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const API_BASE = '/api/v1';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const jobId = urlParams.get('jobId');
+
+            if (!jobId) {
+                showError('No Job ID provided');
+                return;
+            }
+
+            document.getElementById('job-id-display').textContent = jobId;
+            loadDiff(jobId);
+        });
+
+        async function loadDiff(jobId) {
+            try {
+                const res = await fetch(`${API_BASE}/jobs/${jobId}/diff?rows=50`);
+                if (!res.ok) throw new Error('Failed to fetch diff data');
+
+                const diff = await res.json();
+                renderDiff(diff);
+            } catch (e) {
+                showError(e.message);
+            }
+        }
+
+        function renderDiff(diff) {
+            document.getElementById('loading-state').classList.add('hidden');
+            document.getElementById('diff-content').classList.remove('hidden');
+
+            // Summary
+            document.getElementById('total-changes').textContent = diff.totalChanges.toLocaleString();
+
+            const statsContainer = document.getElementById('changes-by-col');
+            if (Object.keys(diff.changesByColumn || {}).length === 0) {
+                statsContainer.innerHTML = '<span class="text-gray-500 text-sm">No changes detected</span>';
+            } else {
+                statsContainer.innerHTML = Object.entries(diff.changesByColumn || {})
+                    .map(([col, count]) => `
+                        <div class="px-3 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs flex items-center">
+                            <span class="font-semibold mr-1">${col}:</span>
+                            <span>${count}</span>
+                        </div>
+                    `).join('');
+            }
+
+            if (!diff.rows || diff.rows.length === 0) {
+                document.getElementById('diff-body').innerHTML = '<tr><td colspan="100%" class="px-6 py-12 text-center text-gray-500">No data available</td></tr>';
+                return;
+            }
+
+            // Headers
+            const thead = document.getElementById('diff-head');
+            let headerHtml = '<tr><th class="px-4 py-3 text-left text-gray-400 w-16 bg-[#1e1e2e]">Row</th>';
+            diff.headers.forEach(h => {
+                headerHtml += `<th class="px-4 py-3 text-left text-gray-400 font-medium">${h}</th>`;
+            });
+            headerHtml += '</tr>';
+            thead.innerHTML = headerHtml;
+
+            // Body
+            const tbody = document.getElementById('diff-body');
+            tbody.innerHTML = diff.rows.map(row => {
+                let html = `<tr class="hover:bg-white/5 transition-colors group">
+                    <td class="px-4 py-3 text-gray-500 font-mono text-xs border-r border-white/5 bg-[#1e1e2e]/50">#${row.rowNumber}</td>`;
+
+                row.cells.forEach(cell => {
+                    if (cell.changed) {
+                        html += `
+                            <td class="px-4 py-3 bg-red-500/5">
+                                <div class="flex flex-col space-y-1">
+                                    <div class="text-red-400/70 line-through text-xs" title="Original: ${escapeHtml(cell.originalValue)}">
+                                        ${truncate(cell.originalValue, 30)}
+                                    </div>
+                                    <div class="text-green-400 font-medium text-sm" title="Sanitized: ${escapeHtml(cell.sanitizedValue)}">
+                                        ${truncate(cell.sanitizedValue, 30)}
+                                    </div>
+                                </div>
+                            </td>`;
+                    } else {
+                        html += `<td class="px-4 py-3 text-gray-400 text-sm opacity-60 group-hover:opacity-100">
+                            ${truncate(cell.originalValue, 30)}
+                        </td>`;
+                    }
+                });
+
+                html += '</tr>';
+                return html;
+            }).join('');
+        }
+
+        function showError(msg) {
+            document.getElementById('loading-state').classList.add('hidden');
+            document.getElementById('error-state').classList.remove('hidden');
+            document.getElementById('error-message').textContent = msg;
+        }
+
+        function truncate(str, len) {
+            if (!str) return '';
+            return str.length > len ? str.substring(0, len) + '...' : str;
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+
+</html>
